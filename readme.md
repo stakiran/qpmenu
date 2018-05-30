@@ -27,7 +27,7 @@ $ qpmenu.ahk "d:\work\text"
 **メニュー表示位置をピクセルで指定する** こともできます(以下は画面左上 `(0, 0)` に表示する例)。
 
 ```
-$ qpmenu.ahk -x 0 y 0
+$ qpmenu.ahk -x 0 -y 0
 ```
 
 ## Usage - オープンモード
