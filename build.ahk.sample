@@ -1,0 +1,5 @@
+﻿infile  = %A_ScriptDir%\qpmenu.ahk
+outfile = %A_ScriptDir%\qpmenu.exe
+builder = <Your AHK2EXE.exe Path>
+
+Run "%builder%" /in "%infile%" /out "%outfile%"

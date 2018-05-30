@@ -1,0 +1,5 @@
+*.exe
+config.ahk
+build.ahk
+
+*.mac
