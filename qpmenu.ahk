@@ -3,7 +3,8 @@ prepare:
 
 ; config
 SetWorkingDir %A_ScriptDir%
-CoordMode Menu,Screen
+CoordMode Menu, Screen
+CoordMode Mouse, Screen
 
 ; consts
 BASEDIR = %A_ScriptDir%
