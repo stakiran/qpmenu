@@ -40,6 +40,9 @@ counter.plus()
 list_fullpath.Push("DUMMY DATA")
 Menu, %menuname_root%, Add, <<Parent Directory(&\)>> %EMBED_COUNTER_DELIM% 1, label_open
 
+; prepare data for folder exclusion
+exclude_folderlist := create_exclude_folderlist()
+
 parse(menuname_root, list_fullpath, counter, search_dir)
 
 posobj := determin_showpos(args)
@@ -108,14 +111,40 @@ determin_search_dir_root(args){
   Return args.unclassified[1]
 }
 
+; Config の ".git;node_modules;..."
+; ↓
+; Array [".git", "node_modules", ...] ← これを作る.
+;
+; parse 関数内から使うなら Array しか手段が無い.
+; Q1: parse 関数内で split するのは？
+;     → 処理時間かかるのでダメ(先に計算しておきたい)
+; Q2: split 後の var1 var2 ... varN 形式を使うのは？
+;     → global var1, global var2, ... しか使えないのでダメ.
+create_exclude_folderlist(){
+  config_exclude_foldername := CONFIG.EXCLUDE_FOLDERNAME
+  StringSplit, exclude_folders, config_exclude_foldername, ";"
+
+  exclude_folderlist := Object()
+
+  Loop, %exclude_folders0%
+  {
+    excluder_name = exclude_folders%A_Index%
+    exclude_folderlist.Insert(%excluder_name%)
+  }
+
+  Return exclude_folderlist
+}
+
 ; @param menuname A string
 ; @param list_fullpath A object
 ; @param counter A Counter instance for each item id.
 ; @param search_dir A string absolute directory path
 parse(menuname, list_fullpath, counter, search_dir){
-  ; 定数アクセスするのにいちいち global するのだるいな...
+  ; グローバルな定数にアクセスするのにいちいち global するのだるいな...
   global EMBED_COUNTER_DELIM
   global EMPTY_STRING_DISPLAY
+  ; exclude_folderlist は中身が変化しないので global で先に計算したものを使うように.
+  global exclude_folderlist
 
   ; この search_dir が持つファイル(フォルダ含む)数.
   ; これが 0 の場合にそのままスルーするとサブメニュー結合時にこけちゃうので
@@ -147,6 +176,19 @@ parse(menuname, list_fullpath, counter, search_dir){
     dirname  := A_LoopFileDir
 
     itemname := A_LoopFileName
+
+    ; フォルダ除外
+    should_this_folder_skip := false
+    For index,exclude_foldername in exclude_folderlist
+    {
+      if(itemname == exclude_foldername){
+        should_this_folder_skip := true
+        Continue
+    }
+    }
+    if(should_this_folder_skip){
+      Continue
+    }
 
     ; メニュー名が重複するとサブメニューを一意に作れないので
     ; 重複しないであろうフルパスを使うことにする.

@@ -1,3 +1,4 @@
 ﻿class CONFIG{
   static TEXT_EDITOR_PATH := "C:\\Program Files\\Hidemaru\\HIDEMARU.EXE"
+  static EXCLUDE_FOLDERNAME := ".git;node_modules"
 }
