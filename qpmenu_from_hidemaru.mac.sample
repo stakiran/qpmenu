@@ -12,14 +12,28 @@ $qpmenu_path     = $qpmenu_path_ahk;
 // VVVVVVVVVVVVVVVVV
 // ê›íËâ”èäÇ±Ç±Ç‹Ç≈
 
+#use_mouse_pos = true;
+if(iskeydown(0x10)){
+	#use_mouse_pos = false;
+}
+if(iskeydown(0x11)){
+	#use_mouse_pos = false;
+}
+if(iskeydown(0x12)){
+	#use_mouse_pos = false;
+}
 
-
-
-$DP    = "\"";
-$arg_x = str(xpixel);
-$arg_y = str(ypixel);
-$arg_directory_of_opened_file = directory2;
-$commandline = $DP + $ahk_bin_path + $DP + " " + $DP + $qpmenu_path + $DP + " -x " + $arg_x + " -y " + $arg_y + " " + $DP + $arg_directory_of_opened_file + $DP;
+if(#use_mouse_pos){
+	$DP    = "\"";
+	$arg_directory_of_opened_file = directory2;
+	$commandline = $DP + $ahk_bin_path + $DP + " " + $DP + $qpmenu_path + $DP + " " + $DP + $arg_directory_of_opened_file + $DP;
+}else{
+	$DP    = "\"";
+	$arg_x = str(xpixel);
+	$arg_y = str(ypixel);
+	$arg_directory_of_opened_file = directory2;
+	$commandline = $DP + $ahk_bin_path + $DP + " " + $DP + $qpmenu_path + $DP + " -x " + $arg_x + " -y " + $arg_y + " " + $DP + $arg_directory_of_opened_file + $DP;
+}
 
 // For Debugging
 //message $commandline;
