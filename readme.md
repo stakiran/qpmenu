@@ -96,3 +96,10 @@ Ans: 仕様です。
 
 ## Author
 [stakiran](https://github.com/stakiran)
+
+## 更新履歴
+- 2019/04/17 v0.1.0
+  - add 走査時に指定フォルダを除外する機能を追加
+  - change 秀丸エディタマクロ qpmenu_from_hidemaru.mac から qpmenu を呼び出した時の表示位置がマウスクリック時 or キー割当時とどちらの場合でも自然な位置になるよう修正
+- 2018/05/30 v0.0.1
+  - 初版

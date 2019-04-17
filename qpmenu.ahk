@@ -1,4 +1,5 @@
-﻿
+﻿; qpmenu - version 0.1.0
+
 prepare:
 
 ; config
