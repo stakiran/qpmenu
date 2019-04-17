@@ -1,4 +1,8 @@
 ﻿class CONFIG{
+  ; Shift キーを押しながら項目選択した時に使うエディタのフルパス.
+  ; \ は \\ のように二重で書く必要アリ.
   static TEXT_EDITOR_PATH := "C:\\Program Files\\Hidemaru\\HIDEMARU.EXE"
+  ; qpmenu で辿るのをスキップするフォルダ.
+  ; セミコロン区切り.
   static EXCLUDE_FOLDERNAME := ".git;node_modules"
 }
